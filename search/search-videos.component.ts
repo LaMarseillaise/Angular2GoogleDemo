@@ -21,7 +21,7 @@ const FAKE_RESULTS = [
 })
 export class SearchVideosComponent {
   /* Container to hold the list of video results. */
-  videoList: any[];
+  videoList: Video[];
 
   /* The user's search term. Initialized to "cats". */
   searchTerm: string = 'cats';
@@ -30,7 +30,7 @@ export class SearchVideosComponent {
   // TODO(M9): Get ahold of all search result card components.
 
   // TODO(M3): Inject the YoutubeService in the constructor.
-  constructor() {}
+  constructor(public youtube: YoutubeService) {}
 
   /**
    * Enforce that only one video is playing at a time.
@@ -45,10 +45,10 @@ export class SearchVideosComponent {
 
   // TODO(M2): Implement a fetch() method that returns the FAKE_RESULTS using
   //           this.videoList.
-  fetch(): void {
-    this.videoList = FAKE_RESULTS;
-  }
 
   // TODO(M3): Update the fetch() method to use the results form YoutubeService.
   //           You should also change the type declaration.
+  fetch(): void {
+    this.youtube.getVideos().then(videos => this.videoList = videos);
+  }
 }
