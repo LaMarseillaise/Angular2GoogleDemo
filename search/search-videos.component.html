@@ -13,7 +13,7 @@
   <!-- TODO(M2): Show the total number of search results. -->
   {{ videoList.length }}
   <!-- TODO(M2): Show the description for each search result. -->
-  <div *ngFor="let video of videoList">{{ video.description }}</div>
+  <search-result-card *ngFor="let video of videoList" [video]="video"></search-result-card>
 
   <!-- TODO(M4): Render a search-result-card for each video. Use ng-repeat and
                  property binding. Use this instead of rendering the description
