@@ -33,6 +33,7 @@
 
         <!-- TODO(M5): Add thumbs component and use event binding to handle the
                        thumbs change event. -->
+        <vote-thumbs (voted)="onThumbsChange($event)"></vote-thumbs>
       </div>
     </md-card-content>
     <md-card-content toggle-panel-right>

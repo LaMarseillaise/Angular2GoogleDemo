@@ -16,10 +16,11 @@ export enum ThumbState {
   styleUrls: ['search/thumbs.component.css']
 })
 export class ThumbsComponent {
-  
+
   state: ThumbState = ThumbState.NONE;
-  
+
   // TODO(M5): Add an output change event emitter.
+  @Output() voted = new EventEmitter<ThumbChangeEvent>();
 
   // Templates can't access static value, so we redirect as follows.
   get UP_T() { return ThumbState.UP; }
@@ -27,15 +28,18 @@ export class ThumbsComponent {
   get NONE_T() { return ThumbState.NONE; }
 
   // TODO(M5): Add an onClick() handler for the thumbs up / down buttons.
+  vote(state: ThumbState): void {
+    this.voted.emit(new ThumbChangeEvent(this.state, state));
+  }
 
   reset() { this.state = ThumbState.NONE; }
 }
 
 export class ThumbChangeEvent {
-  
+
   upDiff: number;
   downDiff: number;
-  
+
   constructor(oldState: ThumbState, newState: ThumbState) {
     this.upDiff = ThumbChangeEvent.computeUpDiff(oldState, newState),
     this.downDiff = ThumbChangeEvent.computeDownDiff(oldState, newState);
@@ -60,5 +64,5 @@ export class ThumbChangeEvent {
     if (oldState == ThumbState.UP && newState == ThumbState.NONE) return 0;
     return 0;
   }
-  
+
 }
